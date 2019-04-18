@@ -1,0 +1,14 @@
+
+server:
+  port: 8081
+eureka:
+  client:
+    fetch-registry: false
+    register-with-eureka: false
+    service-url:
+      defaultZone: http://${eureka.instance.home-page-url}:${server.port}/eureka/
+  instance:
+    home-page-url: localhost
+  server:
+    eviction-interval-timer-in-ms: 30000
+    enable-self-preservation: false

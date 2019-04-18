@@ -1,0 +1,16 @@
+server:
+  port: 8763
+spring:
+  application:
+    name: cosumer
+eureka:
+  instance:
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 15
+  client:
+    registry-fetch-interval-seconds: 10
+    healthcheck:
+      enabled: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8081/eureka/

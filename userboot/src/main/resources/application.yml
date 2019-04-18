@@ -1,0 +1,12 @@
+
+spring:
+  application:
+    name: userboot
+server:
+  port: 8082
+eureka:
+  instance:
+    home-page-url: localhost
+  client:
+    service-url:
+      defaultZone: http://localhost:8081/eureka/

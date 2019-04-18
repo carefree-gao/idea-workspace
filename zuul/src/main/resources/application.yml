@@ -1,0 +1,30 @@
+
+spring:
+  application:
+    name: zuul
+server:
+  port: 8089
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8081/eureka/
+zuul:
+  routes:
+    ribbon:
+      path: /api-ribbon/**
+      serviceId: ribbon-new2
+    ribbo:
+      eureka:
+        enabled: false
+
+    feign:
+      path: /api-fegin/**
+      serviceId: feign
+  host:
+    connect-timeout-millis: 3000
+    socket-timeout-millis: 3000
+
+
+
+
+
