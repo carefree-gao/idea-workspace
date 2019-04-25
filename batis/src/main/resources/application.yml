@@ -1,0 +1,9 @@
+
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@120.77.251.154:1521:ORCL
+    username: iot
+    password: iot_pwd
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+server:
+  port: 8093
