@@ -1,0 +1,66 @@
+
+
+server:
+  port: 8094
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@120.77.251.154:1521:ORCL
+    username: iot
+    password: iot_pwd
+    # 数据源
+    driver-class-name: oracle.jdbc.OracleDriver
+    type: com.alibaba.druid.pool.DruidDataSource
+    filters: stat
+    tomcat:
+      #数据连接最大数/限制/最小连接数
+      max-active: 20
+      initial-size: 1
+      min-idle: 1
+      #数据等待
+      max-wait: 60000
+      #
+      time-between-eviction-runs-millis: 60000
+      #
+      min-evictable-idle-time-millis: 30000
+      validation-query: select 1
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: true
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.example.mondel
+pagehelper:
+  #目前Pagehelper支持(Oracle,Mysql,MariaDB,SQLite,Hsqldb,PostgreSQL)使用时直接切换
+  helper-dialect: Oracle
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

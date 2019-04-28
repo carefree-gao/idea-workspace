@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.example.model.User" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="SEX" property="sex" jdbcType="VARCHAR" />
+    <result column="AGE" property="age" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, NAME, SEX, AGE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
+    select 
+    <include refid="Base_Column_List" />
+    from USER_CS
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+
+
+  <select id="findList" resultType="com.example.model.User">
+    select
+    <include refid="Base_Column_List" />
+    from  USER_CS
+  </select>
+
+
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
+    delete from USER_CS
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.example.model.User" >
+    insert into USER_CS (ID, NAME, SEX, 
+      AGE)
+    values (#{id,jdbcType=DECIMAL}, #{name,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
+      #{age,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.model.User" >
+    insert into USER_CS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="sex != null" >
+        SEX,
+      </if>
+      <if test="age != null" >
+        AGE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.model.User" >
+    update USER_CS
+    <set >
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        SEX = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        AGE = #{age,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.model.User" >
+    update USER_CS
+    set NAME = #{name,jdbcType=VARCHAR},
+      SEX = #{sex,jdbcType=VARCHAR},
+      AGE = #{age,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>
