@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/tool"
+       xmlns:context="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/tool
+       http://www.springframework.org/schema/tool/spring-tool.xsd
+       ">
+
+    <!-- 当使用 <context:component-scan/> 后，就可以将 <context:annotation-config/> 移除了。-->
+    <context:component-scan base-package="com.carefree.controller" use-default-filters="false">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+
+    <!-- REST中根据URL后缀自动判定Content-Type及相应的View -->
+    <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+        <property name="mediaTypes" >
+            <map>
+                <entry key="xml" value="application/xml"/>
+                <entry key="json" value="application/json"/>
+            </map>
+        </property>
+        <property name="ignoreAcceptHeader" value="true"/>
+        <property name="favorPathExtension" value="true"/>
+    </bean>
+
+    <!--对页面视图 views 前后缀解析-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="${web.views.prefix}"/>
+        <property name="suffix" value="${web.views.suffix}"/>
+    </bean>
+
+    <mvc:view-controller path="/" view-name="redirect:/u/user/index" />
+
+
+    <!-- 拦截器配置，拦截顺序：先执行后定义的，排在第一位的最后执行。-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/u/**" />
+            <mvc:exclude-mapping path="${adminPath}/"/>
+            <mvc:exclude-mapping path="${adminPath}/login"/>
+            <mvc:exclude-mapping path="${adminPath}/sys/menu/tree"/>
+            <mvc:exclude-mapping path="${adminPath}/sys/menu/treeData"/>
+            <mvc:exclude-mapping path="${adminPath}/oa/oaNotify/self/count"/>
+            <bean class="com.common.LogInterceptor" />
+        </mvc:interceptor>
+        <!--&lt;!&ndash; 手机视图拦截器 &ndash;&gt;
+        <mvc:interceptor>
+            <mvc:mapping path="/**" />
+            <bean class="com.xdht.modules.sys.interceptor.MobileInterceptor" />
+        </mvc:interceptor>-->
+    </mvc:interceptors>
+</beans>
